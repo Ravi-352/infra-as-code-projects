@@ -18,7 +18,9 @@ resource "aws_s3_bucket_ownership_controls" "mybucket" {
   bucket = aws_s3_bucket.mybucket.id
 
   rule {
-    object_ownership = "BucketOwnerPreferred"
+    #object_ownership = "BucketOwnerPreferred"
+    object_ownership = "ObjectWriter"
+    
   }
 }
 
@@ -32,6 +34,8 @@ resource "aws_s3_bucket_public_access_block" "mybucket" {
   block_public_policy     = false
   ignore_public_acls      = false
   restrict_public_buckets = false
+  
+
 }
 
 resource "aws_s3_bucket_acl" "mybucket" {
@@ -48,7 +52,7 @@ resource "aws_s3_bucket_acl" "mybucket" {
 #uploading objects (index.html, error.html etc.) to bucket
 #Resource: aws_s3_object
 
-resource "aws_s3_object" "index" {
+/* resource "aws_s3_object" "index" {
   bucket = aws_s3_bucket.mybucket.id
   key    = "index.html"
   source = "index.html"
@@ -64,15 +68,8 @@ resource "aws_s3_object" "error" {
   acl = "public-read"
   content_type = "text/html"
   
-}
+} */
 
-resource "aws_s3_object" "profile" {
-  bucket = aws_s3_bucket.mybucket.id
-  key    = "profile.png"
-  source = "profile.png"
-  acl = "public-read"
-  
-}
 
 
 #Enabling website configuration for s3-bucket
