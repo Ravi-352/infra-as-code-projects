@@ -9,8 +9,6 @@ resource "null_resource" "upload_files" {
   provisioner "local-exec" {
     interpreter = ["/bin/sh", "-c"]
     command = <<EOT
-      aws s3 cp index.html s3://${aws_s3_bucket.mybucket.bucket}/index.html
-      aws s3 cp error.html s3://${aws_s3_bucket.mybucket.bucket}/error.html
       aws s3 cp --recursive css s3://${aws_s3_bucket.mybucket.bucket}/css
       aws s3 cp --recursive images s3://${aws_s3_bucket.mybucket.bucket}/images
     EOT
